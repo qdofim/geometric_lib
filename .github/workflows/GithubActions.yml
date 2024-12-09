@@ -1,0 +1,38 @@
+name: GithubActions
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main, new_features_465819 ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      FIO: "Дымчиков Михаил Олегович"
+      GROUP: "М3110"
+    steps:
+      - name: Print info
+        run: |
+          echo "ФИО: $FIO"
+          echo "Группа: $GROUP"
+          echo "GitHub Actor: $GITHUB_ACTOR"
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -v
+
+      - name: Lint code
+        run: |
+          flake8 .
