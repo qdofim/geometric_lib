@@ -1,3 +1,4 @@
+
 def area(a, h):
     '''Принимает основание a и высоту h треугольника, возвращает площадь треугольника'''
     if not all(isinstance(x, (int, float)) for x in [a, h]):
@@ -17,4 +18,10 @@ def perimeter(a, b, c):
     # Проверка неравенства треугольника
     if (a + b <= c) or (b + c <= a) or (a + c <= b):
         raise ValueError("Invalid triangle sides")
+
+def area(a, b, c):
+    return (a + b + c) / 2
+
+
+def perimeter(a, b, c):
     return a + b + c
