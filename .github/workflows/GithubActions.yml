@@ -36,3 +36,8 @@ jobs:
       - name: Lint code
         run: |
           flake8 .
+      - name: Debug working directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in the directory:"
+          ls -la
