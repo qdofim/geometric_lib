@@ -13,6 +13,8 @@ jobs:
       FIO: "Дымчиков Михаил Олегович"
       GROUP: "М3110"
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
       - name: Print info
         run: |
           echo "ФИО: $FIO"
