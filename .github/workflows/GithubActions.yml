@@ -20,6 +20,8 @@ jobs:
           echo "ФИО: $FIO"
           echo "Группа: $GROUP"
           echo "GitHub Actor: $GITHUB_ACTOR"
+      - name: Check out repository
+        uses: actions/checkout@v3
 
       - name: Set up Python 3.13
         uses: actions/setup-python@v4
