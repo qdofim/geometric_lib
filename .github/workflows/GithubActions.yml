@@ -1,0 +1,47 @@
+name: GithubActions
+
+on:
+  push:
+    branches: [ develop, feat/tests ]
+  pull_request:
+    branches: [ develop, feat/tests ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      FIO: "Дымчиков Михаил Олегович"
+      GROUP: "М3110"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Print info
+        run: |
+          echo "ФИО: $FIO"
+          echo "Группа: $GROUP"
+          echo "GitHub Actor: $GITHUB_ACTOR"
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -v
+
+      - name: Lint code
+        run: |
+          flake8 .
+      - name: Debug working directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in the directory:"
+          ls -la
