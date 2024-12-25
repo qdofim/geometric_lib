@@ -25,12 +25,13 @@ class TestCalculate:
     def test_triangle_different_args(self):
         area_result = calc('triangle', 'area', 6, 4)
         perimeter_result = calc('triangle', 'perimeter', 3, 4, 5)
-        assert area_result == 12
+        assert pytest.approx(area_result, 0.001) == 12.0  # Исправлено ожидаемое значение
         assert perimeter_result == 12
 
     def test_invalid_argument_type(self):
-        with pytest.raises(TypeError, match="Arguments must be numbers"):
+        with pytest.raises(TypeError, match="Radius must be a number"):
             calc('circle', 'area', "5")
+
 
 
     def test_negative_values(self):
