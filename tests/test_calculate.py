@@ -2,8 +2,6 @@ import pytest
 from calculate import calc
 
 class TestCalculate:
-    """Тесты для функции calc"""
-
     def test_circle_area(self):
         result = calc('circle', 'area', 5)
         assert result == pytest.approx(78.5398, 0.0001)
@@ -31,8 +29,9 @@ class TestCalculate:
         assert perimeter_result == 12
 
     def test_invalid_argument_type(self):
-        with pytest.raises(TypeError, match="must be a number"):
+        with pytest.raises(TypeError, match="Arguments must be numbers"):
             calc('circle', 'area', "5")
+
 
     def test_negative_values(self):
         with pytest.raises(ValueError, match="cannot be negative"):
