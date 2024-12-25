@@ -2,9 +2,9 @@ name: GithubActions
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop, feat/tests ]
   pull_request:
-    branches: [ main, new_features_465819 ]
+    branches: [ develop, feat/tests ]
 
 jobs:
   build-and-test:
