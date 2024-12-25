@@ -2,8 +2,8 @@ def area(a, h):
     """Вычисляет площадь треугольника по основанию a и высоте h."""
     if not all(isinstance(x, (int, float)) for x in [a, h]):
         raise TypeError("Sides must be numbers")
-    if any(x < 0 for x in [a, h]): 
-        raise ValueError("Sides cannot be negative")  
+    if any(x < 0 for x in [a, h]):
+        raise ValueError("Sides cannot be negative")
     return 0.5 * a * h
 
 

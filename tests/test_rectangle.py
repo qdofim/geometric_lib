@@ -1,46 +1,46 @@
 import pytest
-from rectangle import area, perimeter
+from circle import area, perimeter
 
-def test_rectangle_area():
-    """Test rectangle area calculation with standard case"""
+
+def test_circle_area():
+    """Test circle area calculation with standard and edge cases."""
     # Arrange
-    width = 4
-    height = 6
-    
+    radius = 5
+
     # Act
-    result = area(width, height)
-    
+    result = area(radius)
+
     # Assert
-    assert result == 24
+    assert result == pytest.approx(78.5398, 0.0001)
 
-def test_rectangle_area_negative():
-    """Test rectangle area with negative sides"""
+
+def test_circle_area_negative():
+    """Test circle area with negative radius."""
     # Arrange
-    width = -4
-    height = 6
-    
+    radius = -5
+
     # Act & Assert
-    with pytest.raises(ValueError, match="Sides cannot be negative"):
-        area(width, height)
+    with pytest.raises(ValueError, match="Radius cannot be negative"):
+        area(radius)
 
-def test_rectangle_perimeter():
-    """Test rectangle perimeter calculation"""
+
+def test_circle_perimeter():
+    """Test circle perimeter calculation with standard case."""
     # Arrange
-    width = 4
-    height = 6
-    
+    radius = 5
+
     # Act
-    result = perimeter(width, height, width, height)
-    
-    # Assert
-    assert result == 20
+    result = perimeter(radius)
 
-def test_rectangle_invalid_type():
-    """Test rectangle calculations with invalid input type"""
+    # Assert
+    assert result == pytest.approx(31.4159, 0.0001)
+
+
+def test_circle_invalid_type():
+    """Test circle calculations with invalid input type."""
     # Arrange
-    width = "4"
-    height = 6
-    
+    radius = "5"
+
     # Act & Assert
-    with pytest.raises(TypeError, match="Sides must be numbers"):
-        area(width, height)
+    with pytest.raises(TypeError, match="Radius must be a number"):
+        area(radius)

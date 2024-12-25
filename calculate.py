@@ -19,6 +19,7 @@ operations = {
     'triangle': {'area': triangle_area, 'perimeter': triangle_perimeter}
 }
 
+
 def calc(shape_type: str, operation: str, *args) -> float:
     """Вычисляет площадь или периметр геометрической фигуры."""
     if operation not in funcs:
@@ -28,34 +29,53 @@ def calc(shape_type: str, operation: str, *args) -> float:
         raise ValueError("Unknown shape type")
 
     required_args = (
-        expected_args[shape_type][operation] if shape_type == 'triangle' else expected_args[shape_type]
+        expected_args[shape_type][operation]
+        if isinstance(expected_args[shape_type], dict)
+        else expected_args[shape_type]
     )
 
     if len(args) != required_args:
-        raise ValueError(f"Invalid number of arguments for {shape_type} {operation}")
+        raise ValueError(
+            f"Invalid number of arguments for {shape_type} {operation}. "
+            f"Expected {required_args}."
+        )
 
     return operations[shape_type][operation](*args)
 
+
 if __name__ == "__main__":
-    func = ''
     fig = ''
-    size = []
+    func = ''
+    sizes = []
 
     while fig not in figs:
-        fig = input(f"Enter figure name, available are {figs}:\n")
+        fig = input(f"Enter figure name, available are {figs}:\n").strip()
 
     while func not in funcs:
-        func = input(f"Enter function name, available are {funcs}:\n")
+        func = input(f"Enter function name, available are {funcs}:\n").strip()
 
     required_args = (
         expected_args[fig][func] if fig == 'triangle' else expected_args[fig]
     )
 
-    while len(size) != required_args:
-        size = list(map(float, input(f"Enter {required_args} size(s) for {fig}:\n").split(' ')))
+    while len(sizes) != required_args:
+        try:
+            sizes = list(
+                map(
+                    float,
+                    input(
+                        f"Enter {required_args} size(s) for {fig} (separated by space):\n"
+                    ).split()
+                )
+            )
+            if len(sizes) != required_args:
+                print("Incorrect number of sizes provided.")
+        except ValueError:
+            print("Please enter valid numbers.")
+            sizes = []
 
     try:
-        result = calc(fig, func, *size)
+        result = calc(fig, func, *sizes)
         print(f"The {func} of the {fig} is: {result}")
     except ValueError as e:
         print(f"Error: {e}")
